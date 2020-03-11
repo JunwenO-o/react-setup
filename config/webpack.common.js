@@ -33,6 +33,36 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
+        test: /\.(css|scss)$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: true,
+            },
+          },
+          'sass-loader',
+          'postcss-loader',
+        ],
+      },
+      {
+        test: /\.(jpg|png|gif)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'assets/',
+            limit: 10240,
+          },
+        },
+      },
+      {
+        test: /\.(eot|ttf|svg)$/,
+        use: [{ loader: 'file-loader', options: { name: '[name].[ext]', outputPath: 'assets/' } }], // save files after bundle
+      },
+      {
         test: /\.jsx?$/,
         enforce: 'pre',
         loader: 'eslint-loader',
