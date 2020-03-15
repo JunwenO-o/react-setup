@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import Routes from './router/routes';
 
-const App = () => <h1>Hello World</h1>;
+// Error Boundaries service log
 
-ReactDom.render(<App />, document.getElementById('app'));
+ReactDom.render(<Routes />, document.getElementById('app'));

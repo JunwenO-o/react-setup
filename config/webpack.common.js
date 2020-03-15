@@ -16,6 +16,7 @@ module.exports = {
 
   output: {
     filename: '[name]-[hash].bundle.js',
+    chunkFilename: 'js/[chunkhash:8].chunk.js',
     path: path.resolve(__dirname, '../dist'),
   },
 
@@ -24,6 +25,13 @@ module.exports = {
       template: 'public/index.html',
     }),
   ],
+  devtool: 'source-map',
+
+  resolve: {
+    alias: {
+      '@': '../src',
+    },
+  },
 
   module: {
     rules: [

@@ -20,6 +20,7 @@ module.exports = {
   plugins: ['react', '@typescript-eslint'],
   rules: {
     'eol-last': 0,
+    'react/prop-types': 0,
     'react/jsx-filename-extension': [0, { extensions: ['.js', '.jsx'] }],
   },
 };
