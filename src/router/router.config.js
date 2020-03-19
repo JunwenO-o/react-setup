@@ -6,7 +6,7 @@
 const router = [
   {
     key: 'Home', // string should be enums
-    path: '/home',
+    path: '/',
     meta: {
       // extra info optional
       icon: '',
@@ -17,18 +17,18 @@ const router = [
     children: [
       {
         key: 'ContactUs',
-        path: '/home/contactus',
+        path: '/contactus',
         auth: [],
       },
       {
         key: 'Dashboard',
-        path: '/home/dashboard',
+        path: '/dashboard',
         auth: [], // user type should be enums
         children: [
-          { key: 'Summary', path: '/home/dashboard/summary' },
-          { key: 'ReportEdit', path: '/home/dashboard/reports/:id/edit' },
-          { key: 'Report', path: '/home/dashboard/reports/:id', component: 'Report' },
-          { key: 'Reports', path: '/home/dashboard/reports' },
+          { key: 'Summary', path: '/dashboard/summary' },
+          { key: 'ReportEdit', path: '/dashboard/reports/:id/edit' },
+          { key: 'Report', path: '/dashboard/reports/:id', component: 'Report' },
+          { key: 'Reports', path: '/dashboard/reports' },
         ],
       },
     ],

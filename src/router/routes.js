@@ -6,15 +6,26 @@ import React from 'react';
 import {
   HashRouter as Router, Route, Switch, Redirect,
 } from 'react-router-dom';
+import LoadableComponent from '../components/LoadableComponent';
 import Pages from '../pages';
 import config from './router.config';
 
-const renderComponentRouter = (rs, fpath) => {
+const getRedirectPath = (furl, childPath, routes) => {
+  let cPath = childPath;
+  let rs = routes;
+  while (cPath === furl) {
+    cPath = rs[0].path;
+    if (!rs[0].children) break;
+    rs = rs[0].children;
+  }
+  return cPath;
+};
+
+const renderComponentRouter = (rs, furl, fPath) => {
   const routers = rs.map((r) => {
-    const {
-      children, key, path, component,
-    } = r;
-    const WrapComponent = Pages[key] || Pages[component];
+    const { children, key, path } = r;
+    const pagePath = `${fPath}/${key}`;
+    const WrapComponent = LoadableComponent(pagePath);
     if (!WrapComponent) {
       console.error('Component not found or not register!');
     }
@@ -22,23 +33,24 @@ const renderComponentRouter = (rs, fpath) => {
     if (children && children.length > 0) {
       return (
         <Route path={path} key={key}>
-          <WrapComponent>{renderComponentRouter(children, path)}</WrapComponent>
+          <WrapComponent>{renderComponentRouter(children, path, pagePath)}</WrapComponent>
         </Route>
       );
     }
     return <Route path={r.path} component={WrapComponent} key={key} />;
   });
+  const childPath = getRedirectPath(furl, furl, rs);
   const redirectRoute = (
-    <Route exact path={fpath} render={() => <Redirect to={rs[0].path} push />} key="default" />
+    <Route exact path={furl} render={() => <Redirect to={childPath} push />} key="default" />
   );
-  const notFoundRoute = <Route component={Pages.NotFound} />;
+  const notFoundRoute = <Route component={Pages.NotFound} key="404" />;
   return <Switch>{[redirectRoute].concat(routers, [notFoundRoute])}</Switch>;
 };
 
 const renderRouter = () => {
   if (!config || config.length < 1) return null;
-  const fpath = '/';
-  return renderComponentRouter(config, fpath);
+  const furl = '/';
+  return renderComponentRouter(config, furl, '');
 };
 
 export { renderComponentRouter };

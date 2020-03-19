@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Contactus = ({ chidren }) => (
+const ContactUs = ({ children }) => (
   <div>
     this is contact us page
-    {chidren}
+    {children}
   </div>
 );
 
-export default Contactus;
+export default ContactUs;
