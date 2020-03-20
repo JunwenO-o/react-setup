@@ -1,9 +1,11 @@
-import React from 'react';
-import loadable from '@loadable/component';
+import Loadable from 'react-loadable';
 import Loading from './Loading';
 
-const LoadableComponent = (path, fallback) => { return loadable(() => import(`../pages${path}`), {
-  fallback: fallback || <Loading />,
-})};
+const LoadableComponent = (path, fallback) => Loadable({
+  loader: () => import(`../pages${path}`),
+  loading: fallback || Loading,
+  delay: 300,
+  timeout: 10000,
+});
 
 export default LoadableComponent;

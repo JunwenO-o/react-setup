@@ -37,7 +37,7 @@ const renderComponentRouter = (rs, furl, fPath) => {
         </Route>
       );
     }
-    return <Route path={r.path} component={WrapComponent} key={key} />;
+    return <Route path={r.path} key={key} component={WrapComponent} />;
   });
   const childPath = getRedirectPath(furl, furl, rs);
   const redirectRoute = (

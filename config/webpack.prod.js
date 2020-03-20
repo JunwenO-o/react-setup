@@ -3,12 +3,10 @@
  */
 
 const merge = require('webpack-merge');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   mode: 'production',
-  plugins: [new CleanWebpackPlugin(['./dist'])],
   optimization: {
     splitChunks: {
       chunks: 'async',
@@ -20,17 +18,17 @@ module.exports = merge(common, {
       automaticNameDelimiter: '-',
       automaticNameMaxLength: 30,
       name: true,
-      vendors: {
-        name: 'venders',
-        chunks: 'all',
-        minChunks: 2,
-      },
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10,
-        },
-      },
+      // vendors: {
+      //   name: 'venders',
+      //   chunks: 'all',
+      //   minChunks: 2,
+      // },
+      // cacheGroups: {
+      //   vendors: {
+      //     test: /[\\/]node_modules[\\/]/,
+      //     priority: -10,
+      //   },
+      // },
     },
     runtimeChunk: {
       name: (entrypoint) => `runtime~${entrypoint.name}`,
